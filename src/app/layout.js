@@ -1,4 +1,5 @@
 import { Providers } from './providers';
+import { FavoritesProvider } from './context/FavoritesContext';
 
 export default function RootLayout({ children }) {
     return (
@@ -9,8 +10,11 @@ export default function RootLayout({ children }) {
                 <meta name="description" content="Movie search app built with Next.js + Chakra UI" />
             </head>
             <body>
-                {/* Wrap all children with ChakraProvider */}
-                <Providers>{children}</Providers>
+                {/* Favorites context wraps the app (global state for saved movies) */}
+                <FavoritesProvider>
+                    {/* Chakra UI provider (UI theme + components context) */}
+                    <Providers>{children}</Providers>
+                </FavoritesProvider>
             </body>
         </html>
     );

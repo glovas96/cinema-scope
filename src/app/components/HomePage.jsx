@@ -40,6 +40,11 @@ export default function HomePage() {
                 <Button colorScheme="blue" onClick={handleSearch}>
                     Search
                 </Button>
+                
+                {/* Navigation to Favorites page */}
+                <Link href="/favorites">
+                    <Button colorScheme="yellow" variant="outline">⭐ Favorites</Button>
+                </Link>
             </HStack>
 
             {/* Render search results */}

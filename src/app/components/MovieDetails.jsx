@@ -1,11 +1,28 @@
 'use client';
-import { VStack, Image, Text, Heading } from '@chakra-ui/react';
+import { VStack, Image, Text, Heading, Button, HStack } from '@chakra-ui/react';
+import { useFavorites } from '../context/FavoritesContext';
 
 export default function MovieDetails({ movie }) {
-    // Render movie details with Chakra UI components
+    const { favorites, addFavorite, removeFavorite } = useFavorites();
+    const isFavorite = favorites.some((m) => m.imdbID === movie.imdbID);
+
     return (
         <VStack spacing={4} align="start" p={6}>
-            <Heading>{movie.Title}</Heading>
+            <HStack justify="space-between" w="full">
+                <Heading>{movie.Title}</Heading>
+                {/* Primary action button (toggle add/remove favorites) */}
+                {isFavorite ? (
+                    <Button colorScheme="red" onClick={() => removeFavorite(movie.imdbID)}>
+                        Remove from Favorites
+                    </Button>
+                ) : (
+                    <Button colorScheme="blue" onClick={() => addFavorite(movie)}>
+                        Add to Favorites
+                    </Button>
+                )}
+            </HStack>
+
+            {/* Poster image with fallback */}
             <Image
                 src={movie.Poster !== 'N/A' ? movie.Poster : '/placeholder-poster.png'}
                 alt={movie.Title}
@@ -13,6 +30,8 @@ export default function MovieDetails({ movie }) {
                 objectFit="cover"
                 borderRadius="md"
             />
+
+            {/* Movie metadata */}
             <Text><strong>Year:</strong> {movie.Year}</Text>
             <Text><strong>Genre:</strong> {movie.Genre}</Text>
             <Text><strong>Director:</strong> {movie.Director}</Text>

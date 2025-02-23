@@ -27,6 +27,3 @@ export default async function MoviePage({ params }) {
         return <p>Error loading movie details 😢</p>;
     }
 }
-
-
-
