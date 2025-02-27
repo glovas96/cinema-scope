@@ -1,13 +1,20 @@
 'use client';
 import { VStack, Image, Text, Heading, Button, HStack } from '@chakra-ui/react';
 import { useFavorites } from '../context/FavoritesContext';
+import { useRouter } from 'next/navigation'; // router for back button
 
 export default function MovieDetails({ movie }) {
     const { favorites, addFavorite, removeFavorite } = useFavorites();
     const isFavorite = favorites.some((m) => m.imdbID === movie.imdbID);
+    const router = useRouter(); // init router
 
     return (
         <VStack spacing={4} align="start" p={6}>
+            {/* Back button (navigate to previous page) */}
+            <Button onClick={() => router.back()} colorScheme="gray" variant="outline">
+                ⬅ Back
+            </Button>
+
             <HStack justify="space-between" w="full">
                 <Heading>{movie.Title}</Heading>
                 {/* Primary action button (toggle add/remove favorites) */}

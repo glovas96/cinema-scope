@@ -1,13 +1,20 @@
 'use client';
-import { VStack, Heading, SimpleGrid, Image, Text, Box } from '@chakra-ui/react';
+import { VStack, Heading, SimpleGrid, Image, Text, Box, Button } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useFavorites } from '../context/FavoritesContext';
+import { useRouter } from 'next/navigation'; // router for back button
 
 export default function FavoritesPage() {
     const { favorites } = useFavorites();
+    const router = useRouter(); // init router
 
     return (
         <VStack spacing={6} align="stretch" p={6}>
+            {/* Back button (navigate to previous page) */}
+            <Button onClick={() => router.back()} colorScheme="gray" variant="outline" size="md" alignSelf="flex-start">
+                ⬅ Back
+            </Button>
+
             {/* Page title */}
             <Heading size="2xl" color="blue.600">My Favorites ⭐</Heading>
 
