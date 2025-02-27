@@ -1,4 +1,3 @@
-// app/components/HomePage.jsx
 'use client';
 import { useState } from 'react';
 import {
@@ -22,15 +21,18 @@ export default function HomePage() {
     const [loading, setLoading] = useState(false); // skeleton state
     const [genre, setGenre] = useState('');    // filter by genre
     const [year, setYear] = useState('');      // filter by year
+    const [page, setPage] = useState(1);       // current page
+    const [hasMore, setHasMore] = useState(false); // flag for more results
+    const [totalResults, setTotalResults] = useState(0); // total movies count
     const toast = useToast();                  // notifications
 
     // --- Search handler ---
-    const handleSearch = async () => {
+    const handleSearch = async (reset = true) => {
         setLoading(true); // show skeleton
         try {
-            // 1. Search by title (basic data only)
+            // 1. Search by title with page param
             const res = await fetch(
-                `${process.env.NEXT_PUBLIC_OMDB_API_URL}/?apikey=${process.env.NEXT_PUBLIC_OMDB_API_KEY}&s=${query}&type=movie`
+                `${process.env.NEXT_PUBLIC_OMDB_API_URL}/?apikey=${process.env.NEXT_PUBLIC_OMDB_API_KEY}&s=${query}&type=movie&page=${reset ? 1 : page}`
             );
             const data = await res.json();
             const baseResults = data.Search || [];
@@ -51,12 +53,25 @@ export default function HomePage() {
                     (!year || m.Year === String(year))
             );
 
-            setMovies(filtered); // save results
+            // 4. Save results (reset or append)
+            if (reset) {
+                setMovies(filtered);
+                setPage(2); // next page
+            } else {
+                setMovies((prev) => [...prev, ...filtered]);
+                setPage((prev) => prev + 1);
+            }
+
+            // 5. Save total results count
+            setTotalResults(Number(data.totalResults) || 0);
+
+            // 6. Check if more results exist
+            setHasMore(Number(data.totalResults) > (reset ? filtered.length : movies.length + filtered.length));
 
             // success toast
             toast({
                 title: 'Search complete',
-                description: `${filtered.length} movies found`,
+                description: `${filtered.length} movies loaded`,
                 status: 'success',
                 duration: 2000,
                 isClosable: true,
@@ -116,7 +131,7 @@ export default function HomePage() {
                 {/* Search button */}
                 <Button
                     colorScheme="blue"
-                    onClick={handleSearch}
+                    onClick={() => handleSearch(true)}
                     minW="120px"
                     flexShrink={0} // prevent shrinking
                 >
@@ -161,6 +176,24 @@ export default function HomePage() {
                     ))
                 )}
             </VStack>
+
+            {/* Progress indicator */}
+            {totalResults > 0 && (
+                <Text color="gray.600">
+                    Showing {movies.length} of {totalResults} results
+                </Text>
+            )}
+
+            {/* Load more button */}
+            {hasMore && !loading && (
+                <Button
+                    onClick={() => handleSearch(false)}
+                    colorScheme="blue"
+                    variant="outline"
+                >
+                    Load more
+                </Button>
+            )}
         </VStack>
     );
 }
