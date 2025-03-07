@@ -54,4 +54,3 @@ export const AuthService = {
         return messages[error.code] || "Authentication error";
     },
 };
-

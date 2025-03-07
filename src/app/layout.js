@@ -1,5 +1,5 @@
-import { Providers } from './providers';
-import { FavoritesProvider } from './context/FavoritesContext';
+import { Providers } from "@/components/ui/Providers";
+import { FavoritesProvider } from "@/features/favorites/FavoritesContext";
 import { AuthProvider } from '@/features/auth/AuthContext';
 
 export default function RootLayout({ children }) {

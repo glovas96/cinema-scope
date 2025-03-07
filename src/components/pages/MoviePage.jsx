@@ -1,9 +1,9 @@
 'use client';
 import { VStack, Image, Text, Heading, Button, HStack } from '@chakra-ui/react';
-import { useFavorites } from '../context/FavoritesContext';
+import { useFavorites } from '@/features/favorites/FavoritesContext';
 import { useRouter } from 'next/navigation'; // router for back button
 
-export default function MovieDetails({ movie }) {
+export default function MoviePage({ movie }) {
     const { favorites, addFavorite, removeFavorite } = useFavorites();
     const isFavorite = favorites.some((m) => m.imdbID === movie.imdbID);
     const router = useRouter(); // init router

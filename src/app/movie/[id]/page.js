@@ -1,6 +1,6 @@
-import MovieDetails from '../../components/MovieDetails';
+import MoviePage from "@/components/pages/MoviePage";
 
-export default async function MoviePage({ params }) {
+export default async function Page({ params }) {
     const { id } = await params;
 
     // Fetch movie data on the server
@@ -18,7 +18,7 @@ export default async function MoviePage({ params }) {
         return (
             <main>
                 {/* Client component renders interactive UI */}
-                <MovieDetails movie={movie} />
+                <MoviePage movie={movie} />
             </main>
         );
 
