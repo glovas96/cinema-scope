@@ -1,6 +1,7 @@
 import { Providers } from "@/components/ui/Providers";
 import { FavoritesProvider } from "@/features/favorites/FavoritesContext";
 import { AuthProvider } from '@/features/auth/AuthContext';
+import { Header } from "@/components/ui/Header";
 
 export default function RootLayout({ children }) {
     return (
@@ -18,7 +19,12 @@ export default function RootLayout({ children }) {
                     {/* Favorites depends on user, so it goes inside AuthProvider */}
                     <FavoritesProvider>
                         {/* Chakra UI provider */}
-                        <Providers>{children}</Providers>
+                        <Providers>
+                            {/* Global header visible on all pages */}
+                            <Header />
+                            {/* Page content */}
+                            {children}
+                        </Providers>
                     </FavoritesProvider>
                 </AuthProvider>
             </body>

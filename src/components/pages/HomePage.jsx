@@ -94,7 +94,7 @@ export default function HomePage() {
         <VStack spacing={6} align="stretch" p={6}>
             {/* Title */}
             <Heading size="2xl" color="blue.600">
-                CinemaScope 🎬
+                Search Movies
             </Heading>
 
             {/* Search input + filters + buttons */}
@@ -137,13 +137,6 @@ export default function HomePage() {
                 >
                     Search
                 </Button>
-
-                {/* Favorites button */}
-                <Link href="/favorites">
-                    <Button colorScheme="yellow" variant="outline" minW="120px" flexShrink={0}>
-                        ⭐ Favorites
-                    </Button>
-                </Link>
             </HStack>
 
             {/* Render search results */}
