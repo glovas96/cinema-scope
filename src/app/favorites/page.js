@@ -1,5 +1,10 @@
-import FavoritesPage from "@/components/pages/FavoritesPage";
+import FavoritesPageServer from "./FavoritesPageServer";
 
 export default function Page() {
-    return <FavoritesPage />;
+    return (
+        <main>
+            {/* Server component renders Favorites layout */}
+            <FavoritesPageServer />
+        </main>
+    );
 }

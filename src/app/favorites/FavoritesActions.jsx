@@ -1,22 +1,26 @@
-'use client';
-import { VStack, Heading, SimpleGrid, Image, Text, Box, Button } from '@chakra-ui/react';
-import Link from 'next/link';
-import { useFavorites } from '@/features/favorites/FavoritesContext';
-import { useRouter } from 'next/navigation'; // router for back button
+"use client";
 
-export default function FavoritesPage() {
+import { VStack, SimpleGrid, Image, Text, Box, Button } from "@chakra-ui/react";
+import Link from "next/link";
+import { useFavorites } from "@/features/favorites/FavoritesContext";
+import { useRouter } from "next/navigation";
+
+export default function FavoritesActions() {
     const { favorites } = useFavorites();
     const router = useRouter(); // init router
 
     return (
-        <VStack spacing={6} align="stretch" p={6}>
+        <VStack spacing={6} align="stretch">
             {/* Back button (navigate to previous page) */}
-            <Button onClick={() => router.back()} colorScheme="gray" variant="outline" size="md" alignSelf="flex-start">
+            <Button
+                onClick={() => router.back()}
+                colorScheme="gray"
+                variant="outline"
+                size="md"
+                alignSelf="flex-start"
+            >
                 ⬅ Back
             </Button>
-
-            {/* Page title */}
-            <Heading size="2xl" color="blue.600">My Favorites ⭐</Heading>
 
             {/* Empty state when no favorites */}
             {favorites.length === 0 ? (
@@ -32,20 +36,23 @@ export default function FavoritesPage() {
                                 borderWidth="1px"
                                 borderRadius="md"
                                 p={3}
-                                _hover={{ shadow: 'md' }} // hover effect for better UX
+                                _hover={{ shadow: "md" }}
                             >
-                                {/* Poster image with fallback */}
+                                {/* Poster image */}
                                 <Image
-                                    src={m.Poster !== 'N/A' ? m.Poster : '/placeholder-poster.png'}
+                                    src={m.Poster !== "N/A" ? m.Poster : "/placeholder-poster.png"}
                                     alt={m.Title}
                                     w="100%"
                                     h="240px"
                                     objectFit="cover"
                                     borderRadius="md"
                                 />
+
                                 {/* Movie title + year */}
                                 <VStack align="start" spacing={1} mt={3}>
-                                    <Text fontWeight="bold" noOfLines={1}>{m.Title}</Text>
+                                    <Text fontWeight="bold" noOfLines={1}>
+                                        {m.Title}
+                                    </Text>
                                     <Text color="gray.500">{m.Year}</Text>
                                 </VStack>
                             </Box>

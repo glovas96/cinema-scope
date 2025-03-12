@@ -1,10 +1,10 @@
-import HomePage from "@/components/pages/HomePage";
+import HomePageServer from "./HomePageServer";
 
 export default function Page() {
     return (
         <main>
-            {/* Client component for interactive search */}
-            <HomePage />
+            {/* Server component renders Home layout */}
+            <HomePageServer />
         </main>
     );
 }

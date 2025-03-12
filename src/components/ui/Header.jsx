@@ -25,7 +25,7 @@ export function Header() {
         >
             {/* App logo */}
             <Link href="/">
-                <Text fontSize="xl" fontWeight="bold">
+                <Text fontSize="2xl" fontWeight="bold">
                     CinemaScope 🎬
                 </Text>
             </Link>

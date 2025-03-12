@@ -1,5 +1,11 @@
-import LoginPage from "@/components/pages/LoginPage";
+import LoginPageServer from "./LoginPageServer";
 
 export default function Page() {
-    return <LoginPage />;
+    return (
+        <main>
+            {/* Server component renders Login layout */}
+            <LoginPageServer />
+        </main>
+    );
 }
+

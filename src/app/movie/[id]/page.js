@@ -1,4 +1,4 @@
-import MoviePage from "@/components/pages/MoviePage";
+import MoviePageServer from "./MoviePageServer";
 
 export default async function Page({ params }) {
     const { id } = await params;
@@ -11,14 +11,14 @@ export default async function Page({ params }) {
         );
 
         // check HTTP response
-        if (!res.ok) throw new Error;
+        if (!res.ok) throw new Error();
 
         const movie = await res.json();
 
         return (
             <main>
                 {/* Client component renders interactive UI */}
-                <MoviePage movie={movie} />
+                <MoviePageServer movie={movie} />
             </main>
         );
 

@@ -1,5 +1,10 @@
-import RegisterPage from "@/components/pages/RegisterPage";
+import RegisterPageServer from "./RegisterPageServer";
 
 export default function Page() {
-    return <RegisterPage />;
+    return (
+        <main>
+            {/* Server component renders Register layout */}
+            <RegisterPageServer />
+        </main>
+    );
 }

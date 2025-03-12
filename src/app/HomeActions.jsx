@@ -1,7 +1,7 @@
-'use client';
-import { useState } from 'react';
+"use client";
+
+import { useState } from "react";
 import {
-    Heading,
     Button,
     Input,
     VStack,
@@ -11,20 +11,20 @@ import {
     Skeleton,
     Select,
     useToast,
-} from '@chakra-ui/react';
-import Link from 'next/link';
+} from "@chakra-ui/react";
+import Link from "next/link";
 
-export default function HomePage() {
+export default function HomeActions() {
     // --- State management ---
-    const [query, setQuery] = useState('');     // search query
-    const [movies, setMovies] = useState([]);  // movies with details
+    const [query, setQuery] = useState("");     // search query
+    const [movies, setMovies] = useState([]);   // movies with details
     const [loading, setLoading] = useState(false); // skeleton state
-    const [genre, setGenre] = useState('');    // filter by genre
-    const [year, setYear] = useState('');      // filter by year
-    const [page, setPage] = useState(1);       // current page
+    const [genre, setGenre] = useState("");     // filter by genre
+    const [year, setYear] = useState("");       // filter by year
+    const [page, setPage] = useState(1);        // current page
     const [hasMore, setHasMore] = useState(false); // flag for more results
     const [totalResults, setTotalResults] = useState(0); // total movies count
-    const toast = useToast();                  // notifications
+    const toast = useToast();                   // notifications
 
     // --- Search handler ---
     const handleSearch = async (reset = true) => {
@@ -66,22 +66,25 @@ export default function HomePage() {
             setTotalResults(Number(data.totalResults) || 0);
 
             // 6. Check if more results exist
-            setHasMore(Number(data.totalResults) > (reset ? filtered.length : movies.length + filtered.length));
+            setHasMore(
+                Number(data.totalResults) >
+                (reset ? filtered.length : movies.length + filtered.length)
+            );
 
             // success toast
             toast({
-                title: 'Search complete',
+                title: "Search complete",
                 description: `${filtered.length} movies loaded`,
-                status: 'success',
+                status: "success",
                 duration: 2000,
                 isClosable: true,
             });
         } catch (error) {
             // error toast
             toast({
-                title: 'Error',
-                description: 'Failed to fetch movies',
-                status: 'error',
+                title: "Error",
+                description: "Failed to fetch movies",
+                status: "error",
                 duration: 3000,
                 isClosable: true,
             });
@@ -91,12 +94,7 @@ export default function HomePage() {
     };
 
     return (
-        <VStack spacing={6} align="stretch" p={6}>
-            {/* Title */}
-            <Heading size="2xl" color="blue.600">
-                Search Movies
-            </Heading>
-
+        <VStack spacing={6} align="stretch">
             {/* Search input + filters + buttons */}
             <HStack spacing={4} align="stretch">
                 {/* Input field */}
@@ -108,7 +106,12 @@ export default function HomePage() {
                 />
 
                 {/* Genre filter */}
-                <Select flex="1" placeholder="Genre" value={genre} onChange={(e) => setGenre(e.target.value)}>
+                <Select
+                    flex="1"
+                    placeholder="Genre"
+                    value={genre}
+                    onChange={(e) => setGenre(e.target.value)}
+                >
                     <option value="Action">Action</option>
                     <option value="Comedy">Comedy</option>
                     <option value="Drama">Drama</option>
@@ -117,7 +120,12 @@ export default function HomePage() {
                 </Select>
 
                 {/* Year filter */}
-                <Select flex="1" placeholder="Year" value={year} onChange={(e) => setYear(e.target.value)}>
+                <Select
+                    flex="1"
+                    placeholder="Year"
+                    value={year}
+                    onChange={(e) => setYear(e.target.value)}
+                >
                     {Array.from({ length: 30 }, (_, i) => {
                         const y = 2025 - i;
                         return (
@@ -149,15 +157,25 @@ export default function HomePage() {
                 ) : (
                     movies.map((m) => (
                         <Link href={`/movie/${m.imdbID}`} key={m.imdbID}>
-                            <HStack spacing={4} borderWidth="1px" borderRadius="md" p={3}>
+                            <HStack
+                                spacing={4}
+                                borderWidth="1px"
+                                borderRadius="md"
+                                p={3}
+                            >
                                 {/* Poster image */}
                                 <Image
-                                    src={m.Poster !== 'N/A' ? m.Poster : '/placeholder-poster.png'}
+                                    src={
+                                        m.Poster !== "N/A"
+                                            ? m.Poster
+                                            : "/placeholder-poster.png"
+                                    }
                                     alt={m.Title}
                                     boxSize="80px"
                                     objectFit="cover"
                                     borderRadius="md"
                                 />
+
                                 {/* Movie info */}
                                 <VStack align="start" spacing={1}>
                                     <Text fontWeight="bold">{m.Title}</Text>
